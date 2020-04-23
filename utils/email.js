@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const sendinBlue = require('nodemailer-sendinblue-transport');
 const pug = require('pug');
 const htmlToText = require('html-to-text');
 
@@ -7,22 +8,27 @@ module.exports = class Email {
         this.to = user.email,
         this.firstName = user.name.split(' ')[0],
         this.url = url,
-        this.from = `Jerin Happy <${process.env.EMAIL_FROM}>`    
+        this.from = `${process.env.EMAIL_FROM}`    
     }
 
     newTransport() {
-        if (process.env.NODE_ENV === 'production') {
-            return nodemailer.createTransport({
-                // sendGrid
-                service: 'SendGrid',
-                auth: {
-                    user: process.env.SENDGRID_USERNAME,
-                    pass: process.env.SENDGRID_PASSWORD
-                }
-            });
-        }
 
-        return nodemailer.createTransport({
+        if (process.env.NODE_ENV === 'production') { //for sendgrid api use any one
+            return nodemailer.createTransport({  // FOR MAIL TRAP  for
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
+            auth: {
+                user: process.env.EMAIL_USERNAME,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        })}
+        // if (process.env.NODE_ENV === 'production') {  for sendinblue api
+        //     return nodemailer.createTransport(sendinBlue({
+        //         apiKey: '0dkG4X1fypJ3v8hr',
+        //         apiUrl: 'https://api.sendinblue.com/v2.0'
+        //     }));
+        // }
+        return nodemailer.createTransport({  // FOR MAIL TRAP  for
             host: process.env.EMAIL_HOST,
             port: process.env.EMAIL_PORT,
             auth: {

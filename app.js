@@ -6,12 +6,17 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const path = require('path');
+// compress the http response
+const compression = require('compression');
 // routers
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRouter');
 const bookingRouter = require('./routes/bookingRouter');
+
+process.env.NODE_ENV = 'production'  // testing production 
+
 
 // cookie parser from the incomming request
 const cookieParser = require('cookie-parser');

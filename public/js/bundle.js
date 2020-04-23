@@ -8394,7 +8394,7 @@ exports.showAlert = showAlert;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logout = exports.login = void 0;
+exports.signin = exports.logout = exports.login = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -8497,9 +8497,58 @@ var logout = /*#__PURE__*/function () {
   return function logout() {
     return _ref2.apply(this, arguments);
   };
-}();
+}(); // for singin
+
 
 exports.logout = logout;
+
+var signin = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(data) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return (0, _axios.default)({
+              method: 'POST',
+              url: 'http://127.0.0.1:3000/api/v1/users/signup',
+              data: data
+            });
+
+          case 3:
+            res = _context3.sent;
+
+            if (res.data.status === 'success') {
+              (0, _alert.showAlert)('success', 'Account created in successfully');
+              window.setTimeout(function () {
+                location.assign('/me');
+              }, 2000);
+            }
+
+            _context3.next = 10;
+            break;
+
+          case 7:
+            _context3.prev = 7;
+            _context3.t0 = _context3["catch"](0);
+            (0, _alert.showAlert)('error', _context3.t0.response.data.message);
+
+          case 10:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 7]]);
+  }));
+
+  return function signin(_x3) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.signin = signin;
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"mapbox.js":[function(require,module,exports) {
 "use strict";
 
@@ -9087,6 +9136,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //dom elements
 var mapBox = document.getElementById('map');
 var loginForm = document.querySelector('.form--login');
+var signinForm = document.querySelector('form.form.form--signin');
 var updateForm = document.querySelector('.form.form-user-data');
 var PasswordUpdateForm = document.querySelector('.form.form-user-password');
 var logOutBtn = document.querySelector('.nav__el--logout');
@@ -9097,7 +9147,24 @@ if (mapBox) {
   (0, _mapbox.displayMap)(locations);
 }
 
-; // for login
+; // for singin
+
+if (signinForm) {
+  signinForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.querySelector('#name').value;
+    var email = document.querySelector('#email').value;
+    var password = document.querySelector('#password').value;
+    var passwordConfirm = document.querySelector('#passwordConfirm').value;
+    (0, _login.signin)({
+      name: name,
+      email: email,
+      password: password,
+      passwordConfirm: passwordConfirm
+    });
+  });
+} // for login
+
 
 if (loginForm) {
   loginForm.addEventListener('submit', function (e) {
@@ -9201,7 +9268,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "10835" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "12280" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
