@@ -10,7 +10,7 @@ export const bookTour = async tourId => {
         //1 get checkout session from api
         const session = await axios({
             method: 'GET',
-            url:`http://127.0.0.1:3000/api/v1/bookings/checkout-session/${tourId}`
+            url:`/api/v1/bookings/checkout-session/${tourId}`
         });
         //2 create checkout form + chanre credit card
         const stripe = await loadStripe('pk_test_k4bQtG1YigHSNqVBPbbkdfot005EIfpZTF');

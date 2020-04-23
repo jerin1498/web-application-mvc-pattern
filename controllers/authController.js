@@ -32,13 +32,17 @@ if (process.env.NODE_ENV === "production") cookieOptions.secure = true; // only 
 
 // sign in and providing token
 exports.signup = catchAsync(async (req, res, next) => { 
+    let role = 'user'
+    if (req.body.role) {
+        if (req.user.role == 'admin' || req.user.role == 'lead-guide') role = req.body.role
+    }
     const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
         // passwordChangedAt: req.body.passwordChangedAt,
-        role: req.body.role
+        role
     });
     url = `${req.protocol}://${req.get('host')}/me`
     await new Email(newUser, url).sendWelcome()
@@ -111,10 +115,12 @@ exports.isLoggedIn = async (req, res, next) => {
             //3) checking if user still exists
             const currentUser = await User.findOne({ _id: decoded.id });
             if (!currentUser) {
+                res.locals.user = undefined;
                 return next();
             };
             //4) check if user changed password after the token issued
             if (currentUser.changedPasswordAfter(decoded.iat)) {
+                res.locals.user = undefined;
                 return next()
             };
             // their is a logged in user
@@ -123,9 +129,11 @@ exports.isLoggedIn = async (req, res, next) => {
         };
     } catch{
         // no user loged in block will work during log out or changing the json web token
+        res.locals.user = undefined;
         return next()
     }
     // no user logged in
+    res.locals.user = undefined;
     next()
 };
 

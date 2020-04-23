@@ -6,7 +6,7 @@ export const login = async (email, password) => {
     try {
         const res = await axios({ // getting data form our api that we created
             method: 'POST',
-            url: 'http://127.0.0.1:3000/api/v1/users/login',
+            url: '/api/v1/users/login',// only work if they are hosted in same platform or else you should type the full url link like this http://127.0.0.1:3000/api/v1/users/login
             data: {
                 email,
                 password
@@ -29,7 +29,7 @@ export const logout = async () => {
     try {
         const res = await axios({
             method: 'GET',
-            url: 'http://127.0.0.1:3000/api/v1/users/logout',
+            url: '/api/v1/users/logout',
         });
         if (res.data.status === 'success') location.reload(true);
     } catch{
@@ -38,3 +38,22 @@ export const logout = async () => {
 };
 
 
+// for singin
+
+export const signin = async (data) => {  // data = {name, email, password, passwordConfirm}
+    try {
+        const res = await axios({
+            method: 'POST',
+            url: '/api/v1/users/signup',
+            data
+        });
+        if (res.data.status === 'success') {
+            showAlert('success', 'Account created in successfully')
+            window.setTimeout(() => {
+            location.assign('/me') 
+            }, 2000);
+        }
+    } catch (err) {
+        showAlert('error', err.response.data.message);
+    }
+}

@@ -5,7 +5,7 @@ import {showAlert} from './alert'
 // data = object, type = either password or data
 export const updateSettings = async (data, type) => {
     try {
-        var baseUrl = 'http://127.0.0.1:3000/api/v1/users/';
+        var baseUrl = '/api/v1/users/';
         var url = type === 'data' ? baseUrl + 'updateme' : baseUrl + 'updatepassword';
         const res = await axios({
             method: 'PATCH',

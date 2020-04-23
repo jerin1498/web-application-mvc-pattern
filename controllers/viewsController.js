@@ -23,9 +23,23 @@ exports.getTour = catchAsync(async (req, res, next) => {
     if (!tour) {
         return next(new AppError('Their is no tour with that name', 404))
     }
+    let booked = false;
+    if (res.locals.user) {
+        const userId = res.locals.user._id;
+        toursBookedByUser = await Booking.find({ user: userId });
+        if (toursBookedByUser.length) {
+            isBooked = toursBookedByUser.filter(el => el.tour.id === tour.id)
+            if (isBooked.length) {
+                booked = true;  // this tour is booked by the user so change the front end view
+            }
+        }
+    }
+        
+        
     res.status(200).render('tour', {
         title: `${tour.name} Tour`,
-        tour
+        tour,
+        booked
     });
 });
 
@@ -34,6 +48,13 @@ exports.getLoginForm = (req, res, next) => {
         title: 'login page'
     });
 };
+
+exports.getSigninForm = (req, res, next) => {
+    res.status(200).render('signin', {
+        title: 'signin page'
+    });
+};
+
 
 exports.getAccount = (req, res) => {
     res.status(200).render('account', {
