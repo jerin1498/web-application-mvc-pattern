@@ -15,7 +15,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRouter');
 const bookingRouter = require('./routes/bookingRouter');
 
-process.env.NODE_ENV = 'production'  // testing production 
+// process.env.NODE_ENV = 'production'  // testing production 
 
 
 // cookie parser from the incomming request

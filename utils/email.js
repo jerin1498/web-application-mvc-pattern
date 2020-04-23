@@ -13,7 +13,7 @@ module.exports = class Email {
 
     newTransport() {
 
-        if (process.env.NODE_ENV === 'production') { //for sendgrid api use any one
+        if (process.env.NODE_ENV === 'production') { //for mailtrap api use any one
             return nodemailer.createTransport({  // FOR MAIL TRAP  for
             host: process.env.EMAIL_HOST,
             port: process.env.EMAIL_PORT,
