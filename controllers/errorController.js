@@ -82,7 +82,7 @@ const handleJWTExpiredError = () => new AppError('your token has expired please 
 
 module.exports = (err, req, res, next) => {
     // console.log(err.stack)
-    // process.env.NODE_ENV = 'production';     // turning on into production env default is dev env
+    // process.env.NODE_ENV = 'development';     // turning on into production env default is dev env
     // console.log(process.env.NODE_Env)
     err.status = err.status || 'error';
     err.statusCode = err.statusCode || 500;  

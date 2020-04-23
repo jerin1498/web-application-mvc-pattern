@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const validator = require('validator');
-// const User = require("./userModel");
-// const DB_PASSWORD = process.env.DATA_BASE_PASSWORD;
-// const DB = process.env.DATABASE.replace('<PASSWORD>', DB_PASSWORD);
-const DB = "mongodb://localhost:27017/natours" // temporary using local instance because internet problem
-// const DB = "mongodb+srv://jerin:jerinhappy1498@cluster0-4r65j.mongodb.net/natours?retryWrites=true&w=majority"
 
+
+if (process.env.NODE_ENV === 'production') {
+    const DB_PASSWORD = process.env.DATA_BASE_PASSWORD;
+    DB = process.env.DATABASE.replace('<PASSWORD>', DB_PASSWORD);
+// const DB = "mongodb+srv://jerin:jerinhappy1498@cluster0-4r65j.mongodb.net/natours?retryWrites=true&w=majority"
+} else {
+     DB = "mongodb://localhost:27017/natours" // temporary using local instance because internet problem
+    
+}
 
 mongoose.connect(DB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+    useCreateIndex: true
 }).then(con => {
     // console.log(con.connections);
     console.log('connection successful for tour');

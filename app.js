@@ -18,6 +18,7 @@ const bookingRouter = require('./routes/bookingRouter');
 // process.env.NODE_ENV = 'production'  // testing production 
 
 
+
 // cookie parser from the incomming request
 const cookieParser = require('cookie-parser');
 // const fs = require('fs');
