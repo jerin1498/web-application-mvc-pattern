@@ -1,7 +1,7 @@
 const multer = require('multer'); // middleware used for uploading image
-const User = require('./../models/userModel');
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
+const User = require('../models/userModel');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
 const sharp = require('sharp');// image processing package for nodejs
 

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const viewsController = require('./../controllers/viewsController');
-const authController = require('./../controllers/authController');
-const bookingController = require('./../controllers/bookingController');
+const viewsController = require('../controllers/viewsController');
+const authController = require('../controllers/authController');
+const bookingController = require('../controllers/bookingController');
 
 // checking all routs that loggedin or not
 // router.use(authController.isLoggedIn);

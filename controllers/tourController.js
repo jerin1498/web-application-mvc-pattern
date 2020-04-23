@@ -1,7 +1,7 @@
-const Tour = require('./../models/tourModel');
-const APIFeatures = require('./../utils/apiFeatures');
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/AppError');
+const Tour = require('../models/tourModel');
+const APIFeatures = require('../utils/apiFeatures');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/AppError');
 const factory = require('./handlerFactory');
 const multer = require('multer'); // middleware used for uploading image
 const sharp = require('sharp');// image processing package for nodejs

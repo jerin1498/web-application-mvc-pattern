@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const reviewController = require('./../controllers/reviewController');
-const authController = require('./../controllers/authController');
+const reviewController = require('../controllers/reviewController');
+const authController = require('../controllers/authController');
 
 
 router.use(authController.protect) // every user should login
