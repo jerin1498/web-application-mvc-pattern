@@ -33,7 +33,7 @@
     "nodemailer": "^6.4.6",
     "nodemailer-sendinblue-transport": "^1.2.3",
     "parcel-bundler": "^1.12.4",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "sharp": "^0.25.2",
     "slugify": "^1.4.0",
     "stripe": "^8.44.0",
